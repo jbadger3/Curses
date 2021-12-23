@@ -12,13 +12,12 @@ let package = Package(
   name:  "Curses",
   products: [
     .library(name: "Curses",
-             type: .dynamic,
+             type: .static,
              targets: ["Curses"]),
-  ], 
+  ],
   targets: [
     .systemLibrary(name: "ncurses", pkgConfig: pkgConfig, providers: [.apt(["ncurses"]),.brew(["ncurses"])]),
     .target(name: "Curses", dependencies: ["ncurses"],cSettings: [.define("__NCURSES_H", .when(platforms: [.macOS])),
                                                                   ])
   ]
 )
-
