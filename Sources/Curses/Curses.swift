@@ -332,9 +332,13 @@ internal class Curses {
         case int = 2
         case winch = 28
     }
-
+    
+    #if os(macOS)
+    private typealias SignalHandler = sig_t
+    #else
     private typealias SignalHandler = __sighandler_t
-
+    #endif
+    
     private static func trap(signalNumber:Signal, action:@escaping SignalHandler) {
         signal(signalNumber.rawValue, action)
     }
