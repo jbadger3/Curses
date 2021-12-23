@@ -2,6 +2,11 @@
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
+var pkgConfig: String? = nil
+
+#if os(macOS)
+    pkgConfig = "ncurses"
+#endif
 
 let package = Package(
   name:  "Curses",
@@ -11,9 +16,9 @@ let package = Package(
              targets: ["Curses"]),
   ], 
   targets: [
-    .target(
-      name:"Curses",
-      dependencies: ["ncurses"]),
-    .systemLibrary(name: "ncurses")
+    .systemLibrary(name: "ncurses", pkgConfig: pkgConfig, providers: [.apt(["ncurses"]),.brew(["ncurses"])]),
+    .target(name: "Curses", dependencies: ["ncurses"],cSettings: [.define("__NCURSES_H", .when(platforms: [.macOS])),
+                                                                  ])
   ]
 )
+
