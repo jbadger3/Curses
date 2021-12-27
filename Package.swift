@@ -13,10 +13,13 @@ let package = Package(
   products: [
     .library(name: "Curses",
              targets: ["Curses"]),
+    
   ],
   targets: [
     .systemLibrary(name: "Cncurses", pkgConfig: pkgConfig, providers: [.apt(["ncurses"]),.brew(["ncurses"])]),
-    .target(name: "Curses", dependencies: ["Cncurses"],cSettings: [.define("__NCURSES_H", .when(platforms: [.macOS])),
-                                                                  ])
+    .target(name: "Curses", dependencies: ["Cncurses"],cSettings: [.define("__NCURSES_H", .when(platforms: [.macOS])),]),
+    .testTarget(
+      name: "CursesTests",
+       dependencies: ["Curses"])
   ]
 )

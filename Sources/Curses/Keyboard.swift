@@ -15,8 +15,14 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+import ncurses
 
 public class Keyboard {
+    enum KeyboardBufferingMode {
+        case bufferingOn
+        case bufferingOff
+        case halfDelay(tenthsOfSecond:Int)
+    }
 
     public static let shared = Keyboard()
     private let curses = Curses.shared
@@ -30,16 +36,19 @@ public class Keyboard {
         return curses.getKey(windowHandle:window.windowHandle)
     }
 
-    public func setBufferingOn() {
-        curses.setKeyboardBufferingMode(.bufferingIsOn)
-    }
+    //public func setBufferingOn() {
+    //    curses.setKeyboardBufferingMode(.bufferingIsOn)
+    //}
     
-    public func setBufferingOff() {
-        curses.setKeyboardBufferingMode(.bufferingIsOff)
-    }
+    //public func setBufferingOff() {
+      //  curses.setKeyboardBufferingMode(.bufferingIsOff)
+    //}
     
-    public func setBufferingDelayed(tenthsOfSecond:Int) {
-        curses.setKeyboardBufferingMode(.halfDelay(tenthsOfSecond:tenthsOfSecond))
+    //public func setBufferingDelayed(tenthsOfSecond:Int) {
+    //    curses.setKeyboardBufferingMode(.halfDelay(tenthsOfSecond:tenthsOfSecond))
+    //}
+    public func specialKeys() {
+        
     }
     
 }

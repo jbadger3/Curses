@@ -32,11 +32,7 @@ internal class Curses {
 
     
     // ============================== Type ==============================
-    enum KeyboardBufferingMode {
-        case bufferingIsOn
-        case bufferingIsOff
-        case halfDelay(tenthsOfSecond:Int)
-    }
+
         
 
     
@@ -57,7 +53,7 @@ internal class Curses {
 
     func startUp(handler:CursesHandlerProtocol? = nil) {
         precondition(startUpCount == 0, "Curses is already running.")
-
+        
         // Store user's handler
         Curses.handler = handler
         
@@ -103,16 +99,7 @@ internal class Curses {
         ncurses.keypad(windowHandle, true) // Processes special keys into special codes rather than escape sequences
     }
 
-    func setKeyboardBufferingMode(_ keyboardBufferingMode:KeyboardBufferingMode) {
-        switch (keyboardBufferingMode) {
-        case .bufferingIsOn :
-            ncurses.nocbreak()
-        case .bufferingIsOff:
-            ncurses.cbreak()
-        case .halfDelay(let tenthsOfSecond):
-            ncurses.halfdelay(Int32(tenthsOfSecond))
-        }
-    }
+
 
     func setScroll(windowHandle:UnsafeMutablePointer<WINDOW>, enabled:Bool) {
         ncurses.scrollok(windowHandle, enabled)
@@ -292,7 +279,7 @@ internal class Curses {
         pair_content(index, &foregroundIndex, &backgroundIndex)
     }
 
-
+    
     /* These attributes are not imported into swift and are duplicated here 
      #define NCURSES_ATTR_SHIFT       8
      #define NCURSES_BITS(mask,shift) (NCURSES_CAST(chtype,(mask)) << ((shift) + NCURSES_ATTR_SHIFT))
